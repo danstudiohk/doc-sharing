@@ -3,7 +3,8 @@ Welcome to dAnstudio's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   
+   main
 
 
 Indices and tables
