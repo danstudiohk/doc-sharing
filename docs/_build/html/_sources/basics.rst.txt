@@ -1,0 +1,2 @@
+.. automodule:: src.basics
+    :members:

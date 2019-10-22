@@ -34,7 +34,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python Basics" href="basics_python.html" />
+    <link rel="prev" title="Welcome to dAnstudio’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -78,11 +80,11 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">main.py</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">main.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics_python.html">Python Basics</a></li>
 </ul>
-</div>
+
             
           
         </div>
@@ -148,23 +150,56 @@
   <span class="target" id="module-src.main"></span><div class="section" id="main-py">
 <h1>main.py<a class="headerlink" href="#main-py" title="Permalink to this headline">¶</a></h1>
 <p>The core module of my example project</p>
-<dl class="class">
-<dt id="src.main.ExampleClass">
-<em class="property">class </em><code class="sig-prename descclassname">src.main.</code><code class="sig-name descname">ExampleClass</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.ExampleClass" title="Permalink to this definition">¶</a></dt>
-<dd><p>An example docstring for a class definition.</p>
-<dl class="method">
-<dt id="src.main.ExampleClass.about_self">
-<code class="sig-name descname">about_self</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.main.ExampleClass.about_self" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return information about an instance created from ExampleClass.</p>
+<p>Example Google style docstrings.</p>
+<p>This module demonstrates documentation as specified by the <a class="reference external" href="http://google.github.io/styleguide/pyguide.html">Google Python
+Style Guide</a>. Docstrings may extend over multiple lines. Sections are created
+with a section header and a colon followed by a block of indented text.</p>
+<p class="rubric">Example</p>
+<p>Examples can be given using either the <code class="docutils literal notranslate"><span class="pre">Example</span></code> or <code class="docutils literal notranslate"><span class="pre">Examples</span></code>
+sections. Sections support any reStructuredText formatting, including
+literal blocks:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python example_google.py
+</pre></div>
+</div>
+<p>Section breaks are created by resuming unindented text. Section breaks
+are also implicitly created anytime a new section starts.</p>
+<dl class="attribute">
+<dt id="src.main.module_level_variable1">
+<code class="sig-prename descclassname">src.main.</code><code class="sig-name descname">module_level_variable1</code><a class="headerlink" href="#src.main.module_level_variable1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module level variables may be documented in
+either the <code class="docutils literal notranslate"><span class="pre">Attributes</span></code> section of the module docstring, or in an
+inline docstring immediately following the variable.</p>
+<p>Either form is acceptable, but the two should not be mixed. Choose
+one convention to document module level variables and be consistent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
-</dd></dl>
-
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>print(Hello world!)
+</pre></div>
+</div>
 <dl class="function">
-<dt id="src.main.about_me">
-<code class="sig-prename descclassname">src.main.</code><code class="sig-name descname">about_me</code><span class="sig-paren">(</span><em class="sig-param">your_name</em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.about_me" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the most important thing about a person.
-:param your_name: A string indicating the name of the person.</p>
+<dt id="src.main.example_generator">
+<code class="sig-prename descclassname">src.main.</code><code class="sig-name descname">example_generator</code><span class="sig-paren">(</span><em class="sig-param">n</em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.example_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generators have a <code class="docutils literal notranslate"><span class="pre">Yields</span></code> section instead of a <code class="docutils literal notranslate"><span class="pre">Returns</span></code> section.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – The upper limit of the range to generate, from 0 to <cite>n</cite> - 1.</p>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>int</em> – The next number in the range of 0 to <cite>n</cite> - 1.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Examples should be written in doctest format, and should illustrate how
+to use the function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">example_generator</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="go">[0, 1, 2, 3]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -174,6 +209,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basics_python.html" class="btn btn-neutral float-right" title="Python Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to dAnstudio’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
