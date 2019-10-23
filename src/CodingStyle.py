@@ -1,9 +1,20 @@
 """
-main.py
+Coding Style
 ====================================
-The core module of my example project
 
-Example Google style docstrings.
+
+printf-style string Formatting
+------------------------------
+
+::
+
+    print() # Blank Line
+
+
+
+
+Google style docstrings
+------------------------
 
 This module demonstrates documentation as specified by the `Google Python
 Style Guide`_. Docstrings may extend over multiple lines. Sections are created

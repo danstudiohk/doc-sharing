@@ -1,11 +1,19 @@
 Welcome to dAnstudio's documentation!
 ===================================================
 
+Here is the documentation page for *dAnStudio* mainly for python3 reference.  
+
+
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    
-   main
    DataType
+   FeatureEngineering
+   DataVis
+   ML_Classification
+   CodingStyle
+
 
 
 Indices and tables
@@ -14,3 +22,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Contact: chumchan2@gmail.com

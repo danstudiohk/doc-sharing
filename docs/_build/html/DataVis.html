@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Basics &mdash; dAnstudio-Documentation 1.0.0 documentation</title>
+  <title>Data Visualization &mdash; dAnstudio-Documentation 1.0.0 documentation</title>
   
 
   
@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="main.py" href="main.html" /> 
+    <link rel="next" title="Machine Learning - Classification" href="ML_Classification.html" />
+    <link rel="prev" title="Feature Engineering" href="FeatureEngineering.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,8 +81,14 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="main.html">main.py</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataType.html">Data Type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FeatureEngineering.html">Feature Engineering</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#line-plot">Line Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ML_Classification.html">Machine Learning - Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodingStyle.html">Coding Style</a></li>
 </ul>
 
             
@@ -127,13 +134,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Python Basics</li>
+      <li>Data Visualization</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/basics_python.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/DataVis.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -146,8 +153,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-src.basics_python"></span><div class="section" id="python-basics">
-<h1>Python Basics<a class="headerlink" href="#python-basics" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="module-src.DataVis"></span><div class="section" id="data-visualization">
+<h1>Data Visualization<a class="headerlink" href="#data-visualization" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+<img alt="img/Anatomy_of_Matplotlib_Figure.png" src="img/Anatomy_of_Matplotlib_Figure.png" />
+<div class="section" id="line-plot">
+<h2>Line Plot<a class="headerlink" href="#line-plot" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+        <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Line Plot Y against X&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -158,8 +182,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="ML_Classification.html" class="btn btn-neutral float-right" title="Machine Learning - Classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="main.html" class="btn btn-neutral float-left" title="main.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="FeatureEngineering.html" class="btn btn-neutral float-left" title="Feature Engineering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
