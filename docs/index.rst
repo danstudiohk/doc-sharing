@@ -9,6 +9,7 @@ Here is the documentation page for *dAnStudio* mainly for python3 reference.
    :maxdepth: 3
    
    DataType
+   Function
    FeatureEngineering
    DataVis
    ML_Classification
