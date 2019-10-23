@@ -5,7 +5,7 @@ Welcome to dAnstudio's documentation!
    :maxdepth: 2
    
    main
-   basics
+   DataType
 
 
 Indices and tables
