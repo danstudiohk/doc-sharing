@@ -12,7 +12,10 @@ Line Plot
 ----------
 
 ::
-
+    
+    x = []
+    y = []
+    plt.style.use(ggplot)
     fig, ax = plt.subplots()
     ax.plot(x, y)
     ax.set(xlabel = 'X', 

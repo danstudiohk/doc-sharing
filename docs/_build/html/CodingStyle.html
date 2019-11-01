@@ -80,12 +80,14 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="DataType.html">Data Type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataBasics.html">Data Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Function.html">Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FeatureEngineering.html">Feature Engineering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataVis.html">Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ML_Classification.html">Machine Learning - Classification</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Coding Style</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#printf-style-string-formatting">printf-style string Formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#naming-convention">Naming Convention</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#google-style-docstrings">Google style docstrings</a></li>
 </ul>
 </li>
@@ -158,6 +160,52 @@
 <div class="section" id="printf-style-string-formatting">
 <h2>printf-style string Formatting<a class="headerlink" href="#printf-style-string-formatting" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">()</span> <span class="c1"># Blank Line</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="naming-convention">
+<h2>Naming Convention<a class="headerlink" href="#naming-convention" title="Permalink to this headline">¶</a></h2>
+<p>followed by <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP 8 - Style Guide for Python Code</a></p>
+<p>Type    Public  Internal
+Packages        lower_with_under
+Modules lower_with_under        _lower_with_under
+Classes CapWords        _CapWords
+Exceptions      CapWords
+Functions       lower_with_under()      _lower_with_under()
+Global/Class Constants  CAPS_WITH_UNDER _CAPS_WITH_UNDER
+Global/Class Variables  lower_with_under        _lower_with_under
+Instance Variables      lower_with_under        _lower_with_under (protected)
+Method Names    lower_with_under()      _lower_with_under() (protected)
+Function/Method Parameters      lower_with_under
+Local Variables lower_with_under</p>
+<ul class="simple">
+<li><p>Use 4 spaces per indentation level</p></li>
+<li><p>closing brace/bracket/parenthesis</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">some_function_that_takes_arguments</span><span class="p">(</span>
+    <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">income</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">gross_wages</span>
+    <span class="o">+</span> <span class="n">taxable_interest</span>
+    <span class="o">+</span> <span class="p">(</span><span class="n">dividends</span> <span class="o">-</span> <span class="n">qualified_dividends</span><span class="p">)</span>
+    <span class="o">-</span> <span class="n">ira_deduction</span>
+    <span class="o">-</span> <span class="n">student_loan_interest</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Maximum Line Length = 79 characters (and docstrings/comments to 72).</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/path/to/some/file/you/want/to/read&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_1</span><span class="p">,</span>         <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/path/to/some/file/being/written&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_2</span><span class="p">:</span>
+    <span class="n">file_2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_1</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>

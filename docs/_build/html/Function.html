@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Function &mdash; dAnstudio-Documentation 1.0.0 documentation</title>
+  <title>Functions &mdash; dAnstudio-Documentation 1.0.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Feature Engineering" href="FeatureEngineering.html" />
-    <link rel="prev" title="Data Type" href="DataType.html" /> 
+    <link rel="prev" title="Data Basics" href="DataBasics.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,12 +81,18 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="DataType.html">Data Type</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#lambda">Lambda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#list-comprehension">List Comprehension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#classes-and-objects">Classes and Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#module">Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataBasics.html">Data Basics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#if-else">If … Else</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#while-loops">While Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#for-loops">For Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#def">def</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lambda">lambda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classes-and-objects">classes and objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list-comprehension">list comprehension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module">module</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="FeatureEngineering.html">Feature Engineering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataVis.html">Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ML_Classification.html">Machine Learning - Classification</a></li>
@@ -136,7 +142,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Function</li>
+      <li>Functions</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,20 +161,81 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-src.Function"></span><div class="section" id="function">
-<h1>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="module-src.Function"></span><div class="section" id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="if-else">
+<h2>If … Else<a class="headerlink" href="#if-else" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="c1"># Normal form if-statement</span>
+<span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>               <span class="c1"># True</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b is greater than a&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>            <span class="c1"># False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a and b are equal&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>                   <span class="c1"># False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a is greater than b&quot;</span><span class="p">)</span>
+
+<span class="c1"># One line if else statement, with 3 conditions</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+
+<span class="c1"># No content for if statement to avoid error.</span>
+<span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="while-loops">
+<h2>While Loops<a class="headerlink" href="#while-loops" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is no longer less than 6&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-loops">
+<h2>For Loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>  <span class="c1"># from 2 to 30 by step 3</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finally finished!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="def">
+<h2>def<a class="headerlink" href="#def" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>def &lt;name&gt;(arg1, arg2, ..., argN, *, **):
+    &lt;statements&gt;
+    return &lt;expression&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="lambda">
-<h1>Lambda<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h1>
+<h2>lambda<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="p">[</span><span class="n">arg1</span><span class="p">[,</span><span class="n">arg2</span><span class="p">,</span><span class="o">...</span><span class="p">,</span> <span class="n">argN</span><span class="p">]]:</span> <span class="n">expression</span>
+</pre></div>
 </div>
-<div class="section" id="list-comprehension">
-<h1>List Comprehension<a class="headerlink" href="#list-comprehension" title="Permalink to this headline">¶</a></h1>
 </div>
 <div class="section" id="classes-and-objects">
-<h1>Classes and Objects<a class="headerlink" href="#classes-and-objects" title="Permalink to this headline">¶</a></h1>
+<h2>classes and objects<a class="headerlink" href="#classes-and-objects" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">className</span><span class="p">(</span><span class="n">base</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="n">statements</span>
+    <span class="k">pass</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-comprehension">
+<h2>list comprehension<a class="headerlink" href="#list-comprehension" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module">
-<h1>Module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h1>
+<h2>module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -182,7 +249,7 @@
         <a href="FeatureEngineering.html" class="btn btn-neutral float-right" title="Feature Engineering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="DataType.html" class="btn btn-neutral float-left" title="Data Type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="DataBasics.html" class="btn btn-neutral float-left" title="Data Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

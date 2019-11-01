@@ -8,7 +8,7 @@ Here is the documentation page for *dAnStudio* mainly for python3 reference.
 .. toctree::
    :maxdepth: 3
    
-   DataType
+   DataBasics
    Function
    FeatureEngineering
    DataVis

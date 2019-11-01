@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Data Visualization" href="DataVis.html" />
-    <link rel="prev" title="Data Type" href="DataType.html" /> 
+    <link rel="prev" title="Functions" href="Function.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,11 +81,22 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="DataType.html">Data Type</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Feature Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataBasics.html">Data Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Function.html">Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Feature Engineering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#missing-value-imputation">Missing Value Imputation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outliers-detection">Outliers Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#duplicate-entries-removal">Duplicate Entries Removal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-scaling">Feature Scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-transformation">Feature Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-construction">Feature Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features-combination">Features Combination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-extraction">Feature Extraction</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="DataVis.html">Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ML_Classification.html">Machine Learning - Classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CodingStyle.html">Google style docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodingStyle.html">Coding Style</a></li>
 </ul>
 
             
@@ -152,6 +163,66 @@
             
   <span class="target" id="module-src.FeatureEngineering"></span><div class="section" id="feature-engineering">
 <h1>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this headline">¶</a></h1>
+<p>The process to convert raw data to features, there are 3 types of data:
+- Numerical
+- Categorical
+- Ordinal</p>
+<div class="section" id="missing-value-imputation">
+<h2>Missing Value Imputation<a class="headerlink" href="#missing-value-imputation" title="Permalink to this headline">¶</a></h2>
+<p>Numeric
+- 0
+- -999
+- Mean
+- Median</p>
+<p>Catergorical
+- Mode
+- Others</p>
+</div>
+<div class="section" id="outliers-detection">
+<h2>Outliers Detection<a class="headerlink" href="#outliers-detection" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>visualized by scatter plot</p></li>
+<li><p>log transformation</p></li>
+<li><p>binning</p></li>
+</ul>
+</div>
+<div class="section" id="duplicate-entries-removal">
+<h2>Duplicate Entries Removal<a class="headerlink" href="#duplicate-entries-removal" title="Permalink to this headline">¶</a></h2>
+<p>same records with different target variable</p>
+</div>
+<div class="section" id="feature-scaling">
+<h2>Feature Scaling<a class="headerlink" href="#feature-scaling" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Standardization &gt; [0, 1000]</p></li>
+<li><p>Normalization &gt;  [0, 1] or [-1, 1]</p></li>
+</ul>
+</div>
+<div class="section" id="feature-transformation">
+<h2>Feature Transformation<a class="headerlink" href="#feature-transformation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Rounding</p></li>
+<li><p>Log Transformation</p></li>
+<li><p>Binarization</p></li>
+<li><p>Binning</p></li>
+<li><p>Dummy coding</p></li>
+</ul>
+</div>
+<div class="section" id="feature-construction">
+<h2>Feature Construction<a class="headerlink" href="#feature-construction" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="features-combination">
+<h2>Features Combination<a class="headerlink" href="#features-combination" title="Permalink to this headline">¶</a></h2>
+<p>Non-linear</p>
+</div>
+<div class="section" id="feature-extraction">
+<h2>Feature Extraction<a class="headerlink" href="#feature-extraction" title="Permalink to this headline">¶</a></h2>
+<p>dimensionality reduction。</p>
+<ul class="simple">
+<li><p>Principal Component Analysis (PCA)</p></li>
+<li><p>Latent Dirichlet Allocation (LDA)</p></li>
+<li><p>Latent Semantic Analysis (LSA)</p></li>
+</ul>
+</div>
 </div>
 
 
@@ -165,7 +236,7 @@
         <a href="DataVis.html" class="btn btn-neutral float-right" title="Data Visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="DataType.html" class="btn btn-neutral float-left" title="Data Type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Function.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

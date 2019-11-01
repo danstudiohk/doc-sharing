@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Basics &mdash; dAnstudio-Documentation 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Functions" href="Function.html" />
+    <link rel="prev" title="Welcome to dAnstudio’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> dAnstudio-Documentation
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#numeric">Numeric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datetime">Datetime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#string">String</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boolean">Boolean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operators">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list">List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#turple">Turple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#range">Range</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set">Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dictionary">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#numpy-ndarray">NumPy - ndarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pandas-series">Pandas - series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pandas-dataframe">Pandas - dataframe</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Function.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FeatureEngineering.html">Feature Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataVis.html">Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML_Classification.html">Machine Learning - Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodingStyle.html">Coding Style</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dAnstudio-Documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Data Basics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DataBasics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-src.DataBasics"></span><div class="section" id="data-basics">
+<h1>Data Basics<a class="headerlink" href="#data-basics" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check data type</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>   <span class="c1"># &lt;class &#39;int&#39;&gt;</span>
+
+<span class="c1"># To Delete Variable</span>
+<span class="k">del</span> <span class="n">x</span>
+
+<span class="nb">dir</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="numeric">
+<h2>Numeric<a class="headerlink" href="#numeric" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">long</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">complex</span></code></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span>           <span class="c1"># sum of x and y</span>
+<span class="n">x</span> <span class="o">-</span> <span class="n">y</span>           <span class="c1"># difference of x and y</span>
+<span class="n">x</span> <span class="o">*</span> <span class="n">y</span>           <span class="c1"># product of x and y</span>
+<span class="n">x</span> <span class="o">/</span> <span class="n">y</span>           <span class="c1"># quotient of x and y</span>
+<span class="n">x</span> <span class="o">//</span> <span class="n">y</span>          <span class="c1"># floored quotient of x and y</span>
+<span class="n">x</span> <span class="o">%</span> <span class="n">y</span>           <span class="c1"># remainder of x / y</span>
+<span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>          <span class="c1"># absolute value or magnitude of x</span>
+<span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>          <span class="c1"># x converted to integer</span>
+<span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>        <span class="c1"># x converted to floating point</span>
+<span class="nb">divmod</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>     <span class="c1"># the pair (x // y, x % y)</span>
+<span class="n">x</span> <span class="o">**</span> <span class="n">y</span>          <span class="c1"># x to the power y; or pow(x, y)</span>
+<span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">[,</span> <span class="n">n</span><span class="p">])</span>   <span class="c1"># round if &gt;5 to greatest Integral</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># the greatest Integral &lt;= x</span>
+<span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>    <span class="c1"># the least Integral &gt;= x</span>
+<span class="n">math</span><span class="o">.</span><span class="n">exp</span>
+<span class="n">math</span><span class="o">.</span><span class="n">log</span>
+<span class="n">math</span><span class="o">.</span><span class="n">sqrt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="datetime">
+<h2>Datetime<a class="headerlink" href="#datetime" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2002</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="n">timedelta</span>
+<span class="n">ddmmyy</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%y&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="string">
+<h2>String<a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="s1">&#39;abc&#39;</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="s1">&#39;def&#39;</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>  <span class="c1"># split by separator</span>
+<span class="s2">&quot;#.join(s1)  # join by separator</span>
+<span class="n">strip</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">replace</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">lower</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">upper</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">capitalize</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="boolean">
+<h2>Boolean<a class="headerlink" href="#boolean" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>,``False``</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span><span class="s2">&quot;Hello World&quot;</span>
+
+<span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>           <span class="c1">#False</span>
+<span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span>           <span class="c1">#False</span>
+<span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span>           <span class="c1">#False</span>
+<span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">istitle</span><span class="p">()</span>           <span class="c1">#True</span>
+<span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span>           <span class="c1">#False</span>
+<span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span>           <span class="c1">#False</span>
+<span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span>           <span class="c1">#False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="operators">
+<h2>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="list">
+<h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>mutable sequences</p></li>
+<li><p>list comprehension: [x for x in iterable]</p></li>
+<li><p>l = [obj1, obj2, obj3]</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create empty list</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># indexing ~ list[i]</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># 1</span>
+
+<span class="c1"># slicing ~ list[start:end:sep]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># [1, 2]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># [2, 3]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="turple">
+<h2>Turple<a class="headerlink" href="#turple" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>immutable sequences</p></li>
+<li><p>to store collections of heterogeneous data</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">,</span> <span class="n">obj3</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">()</span>    <span class="c1"># empty turple</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="range">
+<h2>Range<a class="headerlink" href="#range" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>immutable sequence of numbers</p></li>
+<li><p>for looping a specific number of times in for loops.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#range(start, stop, step)</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>     <span class="c1"># [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
+<span class="mi">11</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>     <span class="c1"># False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set">
+<h2>Set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">,</span> <span class="n">obj3</span><span class="p">}</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span> <span class="c1"># empty set</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dictionary">
+<h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>mapping object</p></li>
+<li><p>d = {key1 : value1, key2 : value2}</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># empty dict</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">two</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">three</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>  <span class="c1">#return value</span>
+<span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>  <span class="c1"># remove item by key</span>
+<span class="n">d</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span> <span class="c1"># remove item by values</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="numpy-ndarray">
+<h2>NumPy - ndarray<a class="headerlink" href="#numpy-ndarray" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>multidimensional, homogeneous array</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pandas-series">
+<h2>Pandas - series<a class="headerlink" href="#pandas-series" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>a dimenstional array with index</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span> <span class="c1"># empty series</span>
+<span class="n">S2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">c</span><span class="s1">&#39;])</span>
+<span class="n">S2</span><span class="o">.</span><span class="n">values</span>
+<span class="n">S2</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pandas-dataframe">
+<h2>Pandas - dataframe<a class="headerlink" href="#pandas-dataframe" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>An efficient 2D container for potentially mixed-type time series or other labeled data series.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Function.html" class="btn btn-neutral float-right" title="Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to dAnstudio’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Chan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
