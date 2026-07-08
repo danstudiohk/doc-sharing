@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS 1.6 Dust2 Style Web FPS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* CS 1.6 綠色經典 UI 樣式 */
+        .hud {
+            position: absolute;
+            color: #2bfe19;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(43, 254, 25, 0.7);
+            pointer-events: none;
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+        }
+
+        #health-hud {
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #timer-hud {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 5px 15px;
+            border: 1px solid rgba(43, 254, 25, 0.3);
+        }
+
+        #enemies-hud {
+            top: 20px;
+            right: 20px;
+        }
+
+        /* 十字準星 */
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        #crosshair::before, #crosshair::after {
+            content: '';
+            position: absolute;
+            background: #2bfe19;
+            box-shadow: 0 0 2px #000;
+        }
+
+        #crosshair::before {
+            top: 4px;
+            left: -10px;
+            width: 30px;
+            height: 2px;
+        }
+
+        #crosshair::after {
+            top: -10px;
+            left: 4px;
+            width: 2px;
+            height: 30px;
+        }
+
+        /* 受傷紅屏效果 */
+        #damage-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.3);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.1s ease-out;
+        }
+
+        /* 選單與排行榜 UI */
+        .overlay-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .cs-panel {
+            background: #2d3328;
+            border: 2px solid #5c6851;
+            padding: 25px;
+            width: 450px;
+            max-width: 90%;
+            box-shadow: 0 0 20px #000;
+            color: #c5d4b5;
+            text-align: center;
+        }
+
+        .cs-panel h1 {
+            color: #e6ce31;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #5c6851;
+            padding-bottom: 10px;
+        }
+
+        .cs-panel p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .cs-btn {
+            background: #4a5440;
+            border: 1px solid #7d8c6c;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .cs-btn:hover {
+            background: #626f55;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 6px;
+            border: 1px solid #5c6851;
+            text-align: center;
+        }
+
+        th {
+            background: #1e221b;
+            color: #e6ce31;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <canvas id="renderCanvas"></canvas>
+
+        <div id="crosshair"></div>
+        <div id="health-hud" class="hud">
+            <span>+</span>
+            <span id="health-val">100</span>
+        </div>
+        <div id="timer-hud" class="hud">00:00.0</div>
+        <div id="enemies-hud" class="hud">敵方剩餘: <span id="enemy-count">0</span></div>
+        <div id="damage-overlay"></div>
+
+        <div id="start-screen" class="overlay-screen">
+            <div class="cs-panel">
+                <h1>COUNTER-STRIKE 1.6</h1>
+                <p><strong>Dust2 經典模擬訓練</strong></p>
+                <p style="text-align: left;">
+                    - 操作：WASD 移動，滑鼠瞄準/左鍵射擊<br>
+                    - 規則：消滅所有敵方電腦 (bot)<br>
+                    - 射中頭部：直接一槍擊斃 (鮮紅大血花)<br>
+                    - 射中身體：扣除部分血量 (敵方50血)<br>
+                    - 被擊中：扣 10 + Random 血量
+                </p>
+                <button id="start-btn" class="cs-btn">開始遊戲</button>
+            </div>
+        </div>
+
+        <div id="gameover-screen" class="overlay-screen hidden">
+            <div class="cs-panel">
+                <h1 id="game-result-title">MISSION FAILED</h1>
+                <p id="game-result-desc"></p>
+                
+                <h3>最佳通關紀錄排行榜</h3>
+                <table id="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>通關時間</th>
+                            <th>日期</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body"></tbody>
+                </table>
+
+                <button id="restart-btn" class="cs-btn">再次挑戰</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        let scene, camera, renderer;
+        let controls = { moveForward: false, moveBackward: false, moveLeft: false, moveRight: false };
+        
+        let playerHealth = 100;
+        let isGameOver = false;
+        let isGameStarted = false;
+        let startTime = 0;
+        let elapsedTime = 0;
+        let timerInterval = null;
+        
+        let enemies = [];
+        let obstacles = []; 
+        let particles = []; // 用於存放血跡、火花粒子
+        let muzzleFlashMesh; // 槍口閃光物件
+        let flashTimer = 0;
+        
+        const PLAYER_SPEED = 12.0;
+        let velocity = new THREE.Vector3();
+        let mouseLook = { yaw: 0, pitch: 0 };
+        
+        const healthHud = document.getElementById('health-val');
+        const timerHud = document.getElementById('timer-hud');
+        const enemyCountHud = document.getElementById('enemy-count');
+        const damageOverlay = document.getElementById('damage-overlay');
+        const startScreen = document.getElementById('start-screen');
+        const gameoverScreen = document.getElementById('gameover-screen');
+        const gameResultTitle = document.getElementById('game-result-title');
+        const gameResultDesc = document.getElementById('game-result-desc');
+        const leaderboardBody = document.getElementById('leaderboard-body');
+
+        function initEngine() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xb0d8f0); 
+            scene.fog = new THREE.FogExp2(0xd2b48c, 0.015); 
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('renderCanvas'), antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+
+            const ambientLight = new THREE.AmbientLight(0xfff5ea, 0.6);
+            scene.add(ambientLight);
+
+            const sunLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            sunLight.position.set(50, 80, 30);
+            sunLight.castShadow = true;
+            scene.add(sunLight);
+
+            // 建立玩家第一人稱的槍口閃光特效 (固定在相機前)
+            const flashGeo = new THREE.PointLight(0xffaa44, 3, 5);
+            muzzleFlashMesh = new THREE.Mesh(
+                new THREE.SphereGeometry(0.15, 8, 8),
+                new THREE.MeshBasicMaterial({ color: 0xffcc44, transparent: true, opacity: 0 })
+            );
+            muzzleFlashMesh.add(flashGeo);
+            muzzleFlashMesh.position.set(0.3, -0.2, -0.8); // 擺在畫面右下方
+            camera.add(muzzleFlashMesh);
+            scene.add(camera); // 必須把 camera 加進場景以渲染其子物件
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function buildMap() {
+            obstacles.forEach(o => scene.remove(o));
+            obstacles = [];
+
+            const floorGeo = new THREE.PlaneGeometry(100, 100);
+            const floorMat = new THREE.MeshLambertMaterial({ color: 0xc2a649 });
+            const floor = new THREE.Mesh(floorGeo, floorMat);
+            floor.rotation.x = -Math.PI / 2;
+            floor.receiveShadow = true;
+            scene.add(floor);
+            obstacles.push(floor); // 讓地板也能接彈孔粒子
+
+            const wallMat = new THREE.MeshLambertMaterial({ color: 0xd9a752 });
+            const createBox = (x, y, z, w, h, d) => {
+                const geo = new THREE.BoxGeometry(w, h, d);
+                const mesh = new THREE.Mesh(geo, wallMat);
+                mesh.position.set(x, y + h/2, z);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                scene.add(mesh);
+                obstacles.push(mesh);
+                return mesh;
+            };
+
+            createBox(0, 0, -50, 100, 10, 2);
+            createBox(0, 0, 50, 100, 10, 2);
+            createBox(-50, 0, 0, 2, 10, 100);
+            createBox(50, 0, 0, 2, 10, 100);
+
+            const crateMat = new THREE.MeshLambertMaterial({ color: 0x8b5a2b }); 
+            const createCrate = (x, z, size = 3) => {
+                const geo = new THREE.BoxGeometry(size, size, size);
+                const mesh = new THREE.Mesh(geo, crateMat);
+                mesh.position.set(x, size/2, z);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                scene.add(mesh);
+                obstacles.push(mesh);
+            };
+
+            createBox(-15, 0, -10, 15, 6, 20); 
+            createBox(15, 0, 10, 20, 6, 15);  
+
+            createCrate(-5, -5, 3);
+            createCrate(-5, -2, 3);
+            createCrate(-2, -5, 3); 
+            createCrate(-5, -5, 6); 
+
+            createCrate(10, -20, 4);
+            createCrate(20, -15, 3);
+            createCrate(-20, 20, 4);
+            createCrate(-18, 24, 3);
+            createCrate(0, 25, 3.5);
+            createCrate(5, 25, 3.5);
+        }
+
+        function createEnemy(x, z) {
+            const group = new THREE.Group();
+            const bodyMat = new THREE.MeshLambertMaterial({ color: 0x3d5229 }); 
+            const headMat = new THREE.MeshLambertMaterial({ color: 0xd2a679 }); 
+            const limbMat = new THREE.MeshLambertMaterial({ color: 0x2b2b2b }); 
+
+            const bodyGeo = new THREE.CylinderGeometry(0.5, 0.5, 1.5, 8);
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
+            body.position.y = 1.35;
+            body.castShadow = true;
+            group.add(body);
+
+            const headGeo = new THREE.SphereGeometry(0.35, 12, 12);
+            const head = new THREE.Mesh(headGeo, headMat);
+            head.position.y = 2.35;
+            head.castShadow = true;
+            head.userData = { type: 'head' }; 
+            group.add(head);
+
+            const legGeo = new THREE.BoxGeometry(0.3, 1.1, 0.3);
+            const leg1 = new THREE.Mesh(legGeo, limbMat);
+            leg1.position.set(-0.25, 0.55, 0);
+            const leg2 = new THREE.Mesh(legGeo, limbMat);
+            leg2.position.set(0.25, 0.55, 0);
+            group.add(leg1);
+            group.add(leg2);
+
+            group.position.set(x, 0, z);
+            scene.add(group);
+
+            return {
+                mesh: group,
+                headMesh: head,
+                health: 50, 
+                lastShootTime: Date.now() + Math.random() * 2000,
+                moveDir: new THREE.Vector3((Math.random()-0.5)*2, 0, (Math.random()-0.5)*2).normalize(),
+                changeDirTime: 0
+            };
+        }
+
+        function spawnEnemies(count = 5) {
+            enemies.forEach(e => scene.remove(e.mesh));
+            enemies = [];
+
+            const spawnPoints = [
+                {x: -30, z: -30}, {x: 30, z: -30}, {x: -30, z: 30}, {x: 35, z: 20}, {x: 0, z: -35}
+            ];
+
+            for (let i = 0; i < count; i++) {
+                const pt = spawnPoints[i % spawnPoints.length];
+                enemies.push(createEnemy(pt.x + (Math.random()*6-3), pt.z + (Math.random()*6-3)));
+            }
+            updateEnemyCountHUD();
+        }
+
+        function setupControls() {
+            document.addEventListener('click', () => {
+                if (isGameStarted && !isGameOver && document.pointerLockElement !== document.body) {
+                    document.body.requestPointerLock();
+                }
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (document.pointerLockElement === document.body && !isGameOver) {
+                    mouseLook.yaw -= e.movementX * 0.0022; 
+                    mouseLook.pitch -= e.movementY * 0.0022;
+                    mouseLook.pitch = Math.max(-Math.PI / 2 + 0.1, Math.min(Math.PI / 2 - 0.1, mouseLook.pitch));
+
+                    camera.rotation.order = "YXZ";
+                    camera.rotation.y = mouseLook.yaw;
+                    camera.rotation.x = mouseLook.pitch;
+                }
+            });
+
+            const onKeyDown = (e) => {
+                switch (e.code) {
+                    case 'KeyW': controls.moveForward = true; break;
+                    case 'KeyS': controls.moveBackward = true; break;
+                    case 'KeyA': controls.moveLeft = true; break;
+                    case 'KeyD': controls.moveRight = true; break;
+                }
+            };
+
+            const onKeyUp = (e) => {
+                switch (e.code) {
+                    case 'KeyW': controls.moveForward = false; break;
+                    case 'KeyS': controls.moveBackward = false; break;
+                    case 'KeyA': controls.moveLeft = false; break;
+                    case 'KeyD': controls.moveRight = false; break;
+                }
+            };
+
+            window.addEventListener('keydown', onKeyDown);
+            window.addEventListener('keyup', onKeyUp);
+
+            window.addEventListener('mousedown', (e) => {
+                if (e.button === 0 && document.pointerLockElement === document.body && !isGameOver) {
+                    playerShoot();
+                }
+            });
+        }
+
+        // --- 核心：彈道與粒子系統 Effect 函數 ---
+
+        // 1. 槍口閃光激發
+        function triggerMuzzleFlash() {
+            muzzleFlashMesh.material.opacity = 1;
+            flashTimer = 0.05; // 持續 0.05 秒
+        }
+
+        // 2. 創造型子彈軌跡 (從玩家視角發射)
+        function createPlayerTracer(targetPoint) {
+            // 計算出起點：將槍口相對於相機的位置轉換到世界坐標中
+            const origin = new THREE.Vector3(0.2, -0.2, -0.5);
+            origin.applyMatrix4(camera.matrixWorld);
+
+            const material = new THREE.LineBasicMaterial({ 
+                color: 0xfffcd0, 
+                transparent: true, 
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending 
+            });
+            const points = [origin, targetPoint];
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+
+            setTimeout(() => { scene.remove(line); geometry.dispose(); }, 40); 
+        }
+
+        // 3. 進階粒子噴射特效 (用於爆血、火花)
+        function spawnImpactParticles(position, colorHex, count = 12, speedScale = 1) {
+            const pGeometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
+            const pMaterial = new THREE.MeshBasicMaterial({ color: colorHex });
+
+            for (let i = 0; i < count; i++) {
+                const p = new THREE.Mesh(pGeometry, pMaterial);
+                p.position.copy(position);
+
+                // 隨機爆炸噴射方向
+                const velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 6 * speedScale,
+                    (Math.random() - 0.2) * 6 * speedScale, // 稍微向上噴
+                    (Math.random() - 0.5) * 6 * speedScale
+                );
+
+                particles.push({
+                    mesh: p,
+                    velocity: velocity,
+                    life: 0.4 + Math.random() * 0.3 // 存活壽命
+                });
+                scene.add(p);
+            }
+        }
+
+        // 玩家開槍邏輯
+        function playerShoot() {
+            triggerMuzzleFlash();
+
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(new THREE.Vector2(0, 0), camera); 
+
+            // 收集判定目標
+            let shootableObjects = [];
+            enemies.forEach(e => {
+                e.mesh.traverse(child => {
+                    if (child.isMesh) {
+                        child.userData.enemyRef = e; 
+                        shootableObjects.push(child);
+                    }
+                });
+            });
+            // 加入牆壁障礙物用於生成火花
+            obstacles.forEach(o => shootableObjects.push(o));
+
+            const intersects = raycaster.intersectObjects(shootableObjects);
+
+            if (intersects.length > 0) {
+                const hit = intersects[0];
+                const enemy = hit.object.userData.enemyRef;
+
+                // 畫出子彈軌跡線
+                createPlayerTracer(hit.point);
+
+                if (enemy) {
+                    const isHeadshot = (hit.object.userData.type === 'head') || (hit.point.y - enemy.mesh.position.y > 2.0);
+
+                    if (isHeadshot) {
+                        enemy.health = 0;
+                        // 爆頭：噴出大量鮮紅大血花 (1.5倍速)
+                        spawnImpactParticles(hit.point, 0xb30000, 25, 1.5);
+                    } else {
+                        enemy.health -= 25;
+                        // 普通擊中：噴出普通紅血花
+                        spawnImpactParticles(hit.point, 0xcc0000, 12, 1);
+                    }
+
+                    if (enemy.health <= 0) {
+                        scene.remove(enemy.mesh);
+                        enemies = enemies.filter(e => e !== enemy);
+                        updateEnemyCountHUD();
+                        checkWinCondition();
+                    }
+                } else {
+                    // 打到牆壁/木箱：噴出 CS 1.6 經典的黃白/灰色火花與沙塵
+                    spawnImpactParticles(hit.point, 0xffdd66, 8, 0.7);
+                }
+            } else {
+                // 沒打中任何東西，彈道延伸至遠方
+                const farPoint = new THREE.Vector3(0, 0, -100).applyMatrix4(camera.matrixWorld);
+                createPlayerTracer(farPoint);
+            }
+        }
+
+        function updateEnemies(delta) {
+            const now = Date.now();
+
+            enemies.forEach(enemy => {
+                if (now > enemy.changeDirTime) {
+                    enemy.moveDir.set((Math.random() - 0.5) * 2, 0, (Math.random() - 0.5) * 2).normalize();
+                    enemy.changeDirTime = now + 2000 + Math.random() * 2000;
+                }
+
+                let moveStep = enemy.moveDir.clone().multiplyScalar(4.0 * delta);
+                enemy.mesh.position.add(moveStep);
+                enemy.mesh.lookAt(camera.position.x, enemy.mesh.position.y, camera.position.z);
+
+                enemy.mesh.position.x = Math.max(-45, Math.min(45, enemy.mesh.position.x));
+                enemy.mesh.position.z = Math.max(-45, Math.min(45, enemy.mesh.position.z));
+
+                if (now - enemy.lastShootTime > 1800 + Math.random() * 1000) {
+                    enemy.lastShootTime = now;
+                    enemyShoot(enemy);
+                }
+            });
+        }
+
+        // 敵人射擊玩家
+        function enemyShoot(enemy) {
+            const origin = enemy.mesh.position.clone();
+            origin.y += 2.0; 
+
+            const target = camera.position.clone();
+            target.x += (Math.random() - 0.5) * 2.5;
+            target.y += (Math.random() - 0.5) * 1.5;
+            target.z += (Math.random() - 0.5) * 2.5;
+
+            const dir = new THREE.Vector3().subVectors(target, origin).normalize();
+
+            // 敵方子彈軌跡：經典黃色軌跡
+            createBulletTracer(origin, dir);
+
+            const dist = enemy.mesh.position.distanceTo(camera.position);
+            if (dist < 45) {
+                const hitChance = Math.max(0.2, 1 - (dist / 50));
+                if (Math.random() < hitChance) {
+                    const dmg = 10 + Math.floor(Math.random() * 15);
+                    takeDamage(dmg);
+                }
+            }
+        }
+
+        function takeDamage(amount) {
+            if (isGameOver) return;
+            playerHealth -= amount;
+            if (playerHealth < 0) playerHealth = 0;
+            healthHud.innerText = playerHealth;
+
+            damageOverlay.style.opacity = '0.8';
+            setTimeout(() => { damageOverlay.style.opacity = '0'; }, 150);
+
+            if (playerHealth <= 0) {
+                gameOver(false);
+            }
+        }
+
+        function createBulletTracer(origin, dir) {
+            const material = new THREE.LineBasicMaterial({ color: 0xffeb3b });
+            const points = [origin, origin.clone().add(dir.clone().multiplyScalar(40))];
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+            setTimeout(() => { scene.remove(line); geometry.dispose(); }, 60);
+        }
+
+        function updateEnemyCountHUD() {
+            enemyCountHud.innerText = enemies.length;
+        }
+
+        function startTimer() {
+            startTime = Date.now();
+            timerInterval = setInterval(() => {
+                elapsedTime = Date.now() - startTime;
+                let sec = (elapsedTime / 1000).toFixed(1);
+                timerHud.innerText = sec + "s";
+            }, 100);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function checkWinCondition() {
+            if (enemies.length === 0) {
+                gameOver(true);
+            }
+        }
+
+        function gameOver(isWin) {
+            isGameOver = true;
+            stopTimer();
+            document.exitPointerLock();
+            gameoverScreen.classList.remove('hidden');
+
+            if (isWin) {
+                const finalTimeSec = (elapsedTime / 1000).toFixed(2);
+                gameResultTitle.innerText = "MISSION SUCCESS";
+                gameResultTitle.style.color = "#2bfe19";
+                gameResultDesc.innerText = `你已成功消滅所有敵方電腦！耗時: ${finalTimeSec} 秒`;
+                saveScore(finalTimeSec);
+            } else {
+                gameResultTitle.innerText = "GAME OVER";
+                gameResultTitle.style.color = "#ff3333";
+                gameResultDesc.innerText = "你已被敵方擊斃！";
+            }
+            renderLeaderboard();
+        }
+
+        function saveScore(timeSec) {
+            let scores = JSON.parse(localStorage.getItem('cs_leaderboard') || '[]');
+            const newRecord = { time: parseFloat(timeSec), date: new Date().toLocaleDateString() };
+            scores.push(newRecord);
+            scores.sort((a, b) => a.time - b.time);
+            scores = scores.slice(0, 5);
+            localStorage.setItem('cs_leaderboard', JSON.stringify(scores));
+        }
+
+        function renderLeaderboard() {
+            let scores = JSON.parse(localStorage.getItem('cs_leaderboard') || '[]');
+            leaderboardBody.innerHTML = '';
+            if (scores.length === 0) {
+                leaderboardBody.innerHTML = '<tr><td colspan="3">尚無紀錄</td></tr>';
+                return;
+            }
+            scores.forEach((sc, idx) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${idx + 1}</td><td>${sc.time} 秒</td><td>${sc.date}</td>`;
+                leaderboardBody.appendChild(row);
+            });
+        }
+
+        function resetGame() {
+            playerHealth = 100;
+            healthHud.innerText = playerHealth;
+            isGameOver = false;
+            
+            camera.position.set(0, 1.7, 40); 
+            mouseLook = { yaw: 0, pitch: 0 };
+
+            // 清理殘留粒子
+            particles.forEach(p => scene.remove(p.mesh));
+            particles = [];
+
+            buildMap();
+            spawnEnemies(5);
+            
+            gameoverScreen.classList.add('hidden');
+            startScreen.classList.add('hidden');
+
+            startTimer();
+            document.body.requestPointerLock();
+        }
+
+        // 主更新循環
+        let clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            if (isGameStarted && !isGameOver) {
+                // WASD 移動玩家
+                let moveVector = new THREE.Vector3();
+                if (controls.moveForward) moveVector.z -= 1;
+                if (controls.moveBackward) moveVector.z += 1;
+                if (controls.moveLeft) moveVector.x -= 1;
+                if (controls.moveRight) moveVector.x += 1;
+
+                moveVector.normalize();
+                moveVector.applyAxisAngle(new THREE.Vector3(0, 1, 0), mouseLook.yaw);
+                moveVector.multiplyScalar(PLAYER_SPEED * delta);
+
+                let nextPos = camera.position.clone().add(moveVector);
+                if (Math.abs(nextPos.x) < 48 && Math.abs(nextPos.z) < 48) {
+                    camera.position.add(moveVector);
+                }
+
+                updateEnemies(delta);
+            }
+
+            // --- 粒子系統動態物理模擬（重力、阻力、壽命） ---
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.life -= delta;
+
+                // 給予地心引力 (重力) 模擬下墜
+                p.velocity.y -= 9.8 * delta;
+                p.mesh.position.add(p.velocity.clone().multiplyScalar(delta));
+
+                // 隨時間淡出
+                if (p.life <= 0) {
+                    scene.remove(p.mesh);
+                    p.mesh.geometry.dispose();
+                    particles.splice(i, 1);
+                }
+            }
+
+            // --- 槍口閃光消退計時器 ---
+            if (flashTimer > 0) {
+                flashTimer -= delta;
+                if (flashTimer <= 0) {
+                    muzzleFlashMesh.material.opacity = 0;
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        window.onload = () => {
+            initEngine();
+            setupControls();
+
+            document.getElementById('start-btn').addEventListener('click', () => {
+                isGameStarted = true;
+                resetGame();
+            });
+
+            document.getElementById('restart-btn').addEventListener('click', () => {
+                resetGame();
+            });
+
+            animate();
+        };
+    </script>
+</body>
+</html>
